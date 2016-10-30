@@ -6,13 +6,6 @@ php:
 
 sudo: false
 
-matrix:
-    include:
-        - php: hhvm-stable
-          sudo: required
-          dist: trusty
-          group: edge
-
 install:
     - composer self-update
     - composer install --no-interaction --prefer-source
