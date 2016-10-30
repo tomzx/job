@@ -1,0 +1,27 @@
+language: php
+
+php:
+    - 7.0
+    - 7.1
+
+sudo: false
+
+matrix:
+    include:
+        - php: hhvm-stable
+          sudo: required
+          dist: trusty
+          group: edge
+
+install:
+    - composer self-update
+    - composer install --no-interaction --prefer-source
+
+script:
+    - php vendor/bin/phpunit
+
+after_script:
+    - wget https://scrutinizer-ci.com/ocular.phar
+    - php ocular.phar code-coverage:upload --format=php-clover log/coverage.xml
+    - wget http://psvcg.coreteks.org/php-semver-checker-git.phar
+    - php php-semver-checker-git.phar suggest -vvv
